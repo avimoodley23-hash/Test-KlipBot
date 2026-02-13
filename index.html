@@ -108,27 +108,17 @@
   }
   .skip-link:focus{ left: 16px; }
 
-  /* Featured sponsor badge, bigger */
-  .sponsor-badge{
-    position:absolute;
+  /* Featured sponsor image */
+  .sponsor-img{
+    position: absolute;
     top: 14px;
     right: 14px;
     z-index: 3;
-    padding: 10px 14px;
-    border-radius: var(--r-pill);
-    background: rgba(0,0,0,0.42);
-    border: 1px solid rgba(255,184,28,0.45);
-    backdrop-filter: blur(8px);
-    box-shadow: 0 10px 22px rgba(0,0,0,0.22);
-    display:flex;
-    align-items:center;
-    gap: 8px;
-  }
-  .sponsor-badge img{
-    height: 40px;
+    height: 44px;
     width: auto;
-    opacity: 0.90;
-    display:block;
+    opacity: 0.92;
+    display: block;
+    filter: drop-shadow(0 4px 12px rgba(0,0,0,0.35));
   }
 
   /* Header */
@@ -737,9 +727,7 @@
 
     <a class="skip-link" href="#input">Skip to chat input</a>
 
-    <div class="sponsor-badge" aria-label="Springboks proud sponsor">
-      <img src="springbok-proud-sponsor.svg" alt="Springboks proud sponsor" onerror="this.closest('.sponsor-badge').style.display='none'" />
-    </div>
+    <img class="sponsor-img" src="springbok-proud-sponsor.svg" alt="Springboks proud sponsor" onerror="this.style.display='none'" />
 
     <div class="header">
       <div class="header-top">
