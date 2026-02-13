@@ -1267,8 +1267,8 @@
   });
 
   (function init(){
-    // Load search index
-    fetch("search_index.json")
+    // Load search index with cache-busting
+    fetch("search_index.json?v=" + Date.now())
       .then(response => {
         if (!response.ok) {
           throw new Error(`HTTP error! status: ${response.status}`);
@@ -1281,6 +1281,10 @@
       })
       .catch(error => {
         console.warn("Failed to load search_index.json, using hardcoded responses only:", error);
+        // Show user-visible error message
+        setTimeout(() => {
+          addBotMessage("⚠️ Search index unavailable — using basic responses only.", "none");
+        }, 1000);
       });
 
     const { avatar } = addBotMessage(CONTENT.intro, "listening");
