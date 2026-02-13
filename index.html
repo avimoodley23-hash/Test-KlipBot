@@ -800,6 +800,8 @@
   </div>
 
 <script>
+  let searchIndex = null; // Store loaded search index
+
   const CONTENT = {
     intro: `
       <strong>Howzit! Welcome to Klipdrift.</strong><br /><br />
@@ -1001,11 +1003,136 @@
     }, delay);
   }
 
+  function searchIndexPages(query){
+    if (!searchIndex || !searchIndex.pages) return [];
+    
+    const q = query.toLowerCase().trim();
+    const queryWords = q.split(/\s+/);
+    const results = [];
+
+    searchIndex.pages.forEach(page => {
+      let score = 0;
+
+      // Check title match (highest weight)
+      if (page.title && page.title.toLowerCase().includes(q)) {
+        score += 10;
+      }
+      queryWords.forEach(word => {
+        if (page.title && page.title.toLowerCase().includes(word)) {
+          score += 3;
+        }
+      });
+
+      // Check keywords match
+      if (page.keywords && Array.isArray(page.keywords)) {
+        page.keywords.forEach(keyword => {
+          const kw = keyword.toLowerCase();
+          if (kw === q) {
+            score += 8;
+          } else if (kw.includes(q) || q.includes(kw)) {
+            score += 5;
+          }
+          queryWords.forEach(word => {
+            if (kw.includes(word) || word.includes(kw)) {
+              score += 2;
+            }
+          });
+        });
+      }
+
+      // Check category match
+      if (page.category && searchIndex.categories && searchIndex.categories[page.category]) {
+        const category = searchIndex.categories[page.category];
+        
+        // Match against category label
+        if (category.label && category.label.toLowerCase().includes(q)) {
+          score += 6;
+        }
+        
+        // Match against category keywords
+        if (category.keywords && Array.isArray(category.keywords)) {
+          category.keywords.forEach(catKeyword => {
+            const ck = catKeyword.toLowerCase();
+            if (ck === q) {
+              score += 7;
+            } else if (ck.includes(q) || q.includes(ck)) {
+              score += 4;
+            }
+            queryWords.forEach(word => {
+              if (ck.includes(word) || word.includes(ck)) {
+                score += 2;
+              }
+            });
+          });
+        }
+      }
+
+      // Check source match (for queries like "klipdrift products" or "rugby")
+      if (page.source) {
+        const src = page.source.toLowerCase();
+        if (q.includes(src) || src.includes(q)) {
+          score += 3;
+        }
+        queryWords.forEach(word => {
+          if (src.includes(word) || word.includes(src)) {
+            score += 1;
+          }
+        });
+      }
+
+      if (score > 0) {
+        results.push({ page, score });
+      }
+    });
+
+    // Sort by score descending
+    results.sort((a, b) => b.score - a.score);
+
+    return results.map(r => r.page);
+  }
+
+  function formatSearchResults(pages, voice){
+    if (!pages || pages.length === 0) return null;
+
+    const maxResults = 5;
+    const topPages = pages.slice(0, maxResults);
+    
+    let html = `<strong>${escapeHtml(voice.opener)}</strong><br /><br />`;
+    
+    if (topPages.length === 1) {
+      const page = topPages[0];
+      const categoryLabel = searchIndex.categories && searchIndex.categories[page.category] 
+        ? searchIndex.categories[page.category].label 
+        : page.category;
+      
+      html += `I found this for you:<br /><br />`;
+      html += `<strong>${escapeHtml(page.title)}</strong><br />`;
+      html += `<em>${escapeHtml(categoryLabel)}</em><br />`;
+      html += `<a href="${escapeHtml(page.url)}" target="_blank" rel="noopener noreferrer">${escapeHtml(page.url)}</a><br /><br />`;
+    } else {
+      html += `Here are ${topPages.length} results I found:<br /><br />`;
+      topPages.forEach((page, idx) => {
+        const categoryLabel = searchIndex.categories && searchIndex.categories[page.category] 
+          ? searchIndex.categories[page.category].label 
+          : page.category;
+        
+        html += `<strong>${idx + 1}. ${escapeHtml(page.title)}</strong><br />`;
+        html += `<em>${escapeHtml(categoryLabel)}</em><br />`;
+        html += `<a href="${escapeHtml(page.url)}" target="_blank" rel="noopener noreferrer">${escapeHtml(page.url)}</a><br /><br />`;
+      });
+    }
+    
+    html += `<strong>${escapeHtml(voice.closer)}</strong>`;
+    
+    return html;
+  }
+
   function resolveReply(text){
     const t = (text || "").toLowerCase();
     const v = getVoice();
     const p = personaSelect.value;
 
+    // Check for existing hardcoded quick reply patterns first
     if (t.includes("10yo") || t.includes("10 year") || t.includes("about")){
       return CONTENT.replies.about(v);
     }
@@ -1018,6 +1145,16 @@
     if (t.includes("serve") || t.includes("perfect")){
       return CONTENT.replies.serve(p);
     }
+
+    // Try dynamic search if index is loaded
+    if (searchIndex) {
+      const results = searchIndexPages(text);
+      if (results.length > 0) {
+        return formatSearchResults(results, v);
+      }
+    }
+
+    // Fallback
     return CONTENT.replies.fallback();
   }
 
@@ -1130,6 +1267,22 @@
   });
 
   (function init(){
+    // Load search index
+    fetch("search_index.json")
+      .then(response => {
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        return response.json();
+      })
+      .then(data => {
+        searchIndex = data;
+        console.log(`Search index loaded: ${data.total_entries} entries`);
+      })
+      .catch(error => {
+        console.warn("Failed to load search_index.json, using hardcoded responses only:", error);
+      });
+
     const { avatar } = addBotMessage(CONTENT.intro, "listening");
 
     const qr = buildQuickReplies();
