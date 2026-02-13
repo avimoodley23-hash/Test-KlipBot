@@ -1,9 +1,1297 @@
-.qr .ico{
-    width: 26px; height: 26px;
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Klipdrift × Springboks Bot, Demo UI</title>
+
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  button, select, input { font: inherit; }
+
+  :root{
+    --bg:#071f17;
+    --bg2:#04160f;
+    --panel: rgba(6, 24, 18, 0.72);
+
+    --green-700:#0a6a4d;
+    --green-900:#043024;
+
+    --gold:#FFB81C;
+    --gold2:#D4A441;
+
+    --text: rgba(255,255,255,0.92);
+    --muted: rgba(255,255,255,0.72);
+
+    --stroke: rgba(255,184,28,0.22);
+    --stroke2: rgba(255,184,28,0.35);
+
+    --shadow: 0 24px 60px rgba(0,0,0,0.38);
+    --shadow2: 0 10px 24px rgba(0,0,0,0.35);
+
+    --r-lg: 28px;
+    --r-md: 18px;
+    --r-pill: 999px;
+  }
+
+  body{
+    font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    background: #071f17;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    padding: 0;
+    color: var(--text);
+  }
+
+  /* Phone shell */
+  .phone{
+    width: 100%;
+    min-height: 100vh;
+    height: 100vh;
+    border-radius: 0;
+    overflow: hidden;
+    background:
+      radial-gradient(1200px 700px at 20% 0%, rgba(255,184,28,0.10) 0%, rgba(0,0,0,0) 55%),
+      linear-gradient(180deg, var(--bg) 0%, var(--bg2) 100%);
+    box-shadow: var(--shadow);
+    border: 1px solid rgba(255,184,28,0.18);
+    display: flex;
+    flex-direction: column;
+    position: relative;
+  }
+  
+  /* Support dynamic viewport height where available */
+  @supports (height: 100dvh) {
+    .phone {
+      min-height: 100dvh;
+      height: 100dvh;
+    }
+  }
+
+  .phone::before{
+    content:"";
+    position:absolute;
+    inset:0;
+    pointer-events:none;
+    background: radial-gradient(900px 280px at 50% -10%, rgba(255,184,28,0.18), rgba(255,184,28,0) 60%);
+    opacity: 0.9;
+    z-index: 0;
+  }
+.phone::after{
+  content:"";
+  position:absolute;
+  inset:0;
+  pointer-events:none;
+  opacity: 0.13;
+  background-image: url("line-design-bg.svg");
+  background-repeat: repeat-x;
+  background-size: 1400px auto;
+  background-position: 0 55%;
+  filter: sepia(1) hue-rotate(15deg) brightness(1.5) contrast(1.05) saturate(1.8) drop-shadow(0 0 6px rgba(255, 184, 28, 0.25));
+  animation: bgScroll 48s linear infinite;
+  z-index: 1;
+}
+  /* Skip link */
+  .skip-link{
+    position: absolute;
+    left: -9999px;
+    top: 8px;
+    z-index: 100;
+    background: var(--gold);
+    color: #141414;
+    padding: 8px 16px;
+    border-radius: var(--r-pill);
+    font-weight: 900;
+    font-size: 13px;
+    text-decoration: none;
+  }
+  .skip-link:focus{ left: 16px; }
+
+  /* Featured sponsor image */
+  .sponsor-img{
+    position: absolute;
+    top: 14px;
+    right: 14px;
+    z-index: 3;
+    height: 44px;
+    width: auto;
+    opacity: 0.92;
+    display: block;
+    filter: drop-shadow(0 4px 12px rgba(0,0,0,0.35));
+  }
+
+  /* Header */
+  .header{
+    position: relative;
+    z-index: 2;
+    padding: 16px 16px 12px 16px;
+    background: linear-gradient(180deg, rgba(10,106,77,0.55) 0%, rgba(4,48,36,0.00) 100%);
+    border-bottom: 1px solid rgba(255,184,28,0.14);
+  }
+
+  .header-top{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap: 12px;
+  }
+
+  .brand{
+    display:flex;
+    align-items:center;
+    gap: 12px;
+    min-width: 0;
+  }
+
+  /* Top left logo, bigger */
+  .logo-badge{
+    width: 52px;
+    height: 52px;
+    border-radius: var(--r-pill);
+    background: rgba(255,255,255,0.08);
+    border: 1px solid rgba(255,184,28,0.35);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.30);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    flex: 0 0 auto;
+    overflow: hidden;
+  }
+
+  .logo-badge img{ width: 34px; height: auto; }
+
+  .logo-badge .logo-fallback{
+    display: none;
+    font-size: 18px;
+    font-weight: 900;
+    color: var(--gold);
+  }
+  .logo-badge img[data-failed="true"]{ display: none; }
+  .logo-badge img[data-failed="true"] ~ .logo-fallback{ display: flex; }
+
+  .titles{ min-width:0; }
+
+  .title{
+    font-weight: 900;
+    letter-spacing: 0.8px;
+    font-size: 14px;
+    line-height: 1.1;
+    text-transform: uppercase;
+    white-space: nowrap;
+    overflow:hidden;
+    text-overflow: ellipsis;
+  }
+
+  .subtitle{
+    margin-top: 5px;
+    font-size: 11.5px;
+    color: var(--muted);
+    white-space: nowrap;
+    overflow:hidden;
+    text-overflow: ellipsis;
+    font-weight: 600;
+  }
+
+  .gold-rule{
+    margin-top: 12px;
+    height: 2px;
+    border-radius: var(--r-pill);
+    background: linear-gradient(
+      90deg,
+      rgba(255,184,28,0.15) 0%,
+      rgba(255,184,28,0.95) 35%,
+      rgba(255,255,255,0.70) 50%,
+      rgba(255,184,28,0.95) 65%,
+      rgba(255,184,28,0.15) 100%
+    );
+    background-size: 220% 100%;
+    animation: shimmer 3.2s ease-in-out infinite;
+    opacity: 0.9;
+  }
+
+  @keyframes shimmer{
+    0% { background-position: 0% 0%; }
+    100% { background-position: 220% 0%; }
+  }
+
+  /* Persona bar */
+  .persona{
+    position: relative;
+    z-index: 2;
+    padding: 12px 16px;
+    display:flex;
+    align-items:center;
+    gap: 10px;
+    background: linear-gradient(180deg, rgba(0,0,0,0.25) 0%, rgba(0,0,0,0) 100%);
+    border-bottom: 1px solid rgba(255,184,28,0.12);
+  }
+
+  .persona-label{
+    font-size: 11px;
+    font-weight: 900;
+    letter-spacing: 0.6px;
+    color: rgba(255,255,255,0.80);
+    flex: 0 0 auto;
+  }
+
+  .persona-wrap{ flex: 1; position: relative; }
+
+  .persona-select{
+    width: 100%;
+    border-radius: var(--r-pill);
+    padding: 11px 36px 11px 14px;
+    background: rgba(0,0,0,0.35);
+    border: 1px solid rgba(255,184,28,0.30);
+    color: rgba(255,255,255,0.92);
+    outline: none;
+    font-size: 12px;
+    font-weight: 750;
+    appearance: none;
+    cursor: pointer;
+    transition: background 160ms ease, border-color 160ms ease;
+  }
+
+  .persona-select:hover{
+    background: rgba(0,0,0,0.44);
+    border-color: rgba(255,184,28,0.44);
+  }
+
+  .persona-select:focus-visible{
+    border-color: rgba(255,184,28,0.95);
+    box-shadow: 0 0 0 3px rgba(255,184,28,0.18);
+  }
+
+  .persona-wrap::after{
+    content: "▾";
+    position: absolute;
+    right: 14px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--gold);
+    font-size: 13px;
+    pointer-events: none;
+  }
+
+  /* Chat */
+  .chat{
+    flex: 1;
+    position: relative;
+    z-index: 1;
+    padding: 18px 16px 14px 16px;
+    overflow-y: auto;
+    min-height: 0;
+  }
+
+  /* Background pattern, larger + slower */
+.chat::before{
+  content:"";
+}
+   
+  @keyframes bgScroll{
+    from { background-position: 0 55%; }
+    to   { background-position: 1400px 55%; }
+  }
+
+  /* Premium overlay texture */
+  .chat::after{
+    content:"";
+    position:absolute;
+    inset:0;
+    pointer-events:none;
+    background-image:
+      radial-gradient(circle at 20% 20%, rgba(255,184,28,0.10), rgba(255,184,28,0) 45%),
+      radial-gradient(circle at 80% 10%, rgba(255,184,28,0.06), rgba(255,184,28,0) 55%),
+      repeating-linear-gradient(90deg, rgba(255,255,255,0.020) 0 1px, rgba(255,255,255,0) 1px 6px);
+    opacity: 0.55;
+    mix-blend-mode: overlay;
+  }
+
+  .chat > *{ position: relative; z-index: 2; }
+
+  /* Chat rows */
+  .row{
+    display:flex;
+    gap: 10px;
+    margin-bottom: 14px;
+    align-items:flex-end;
+  }
+  .row.user{ justify-content:flex-end; }
+
+  /* Avatar, no circle, logo by itself */
+  .avatar{
+    width: 40px;
+    height: 40px;
+    border-radius: 0;
+    border: none;
+    background: transparent;
+    overflow: visible;
+    box-shadow: none;
+    position: relative;
+    flex: 0 0 auto;
+  }
+  .avatar img{
+    width: 40px;
+    height: 40px;
+    object-fit: contain;
+    transform: none;
+    display:block;
+  }
+
+  .avatar .avatar-fallback{
+    display: none;
+    width: 40px;
+    height: 40px;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+    font-weight: 900;
+    color: var(--gold);
+    background: rgba(255,184,28,0.10);
+    border-radius: 10px;
+    border: 1px solid rgba(255,184,28,0.35);
+  }
+  .avatar img[data-failed="true"]{ display: none; }
+  .avatar img[data-failed="true"] ~ .avatar-fallback{ display: flex; }
+
+  /* Glow behind avatar for listening and typing */
+  .avatar::after{
+    content:"";
+    position:absolute;
+    inset:-12px;
+    background: radial-gradient(circle at 50% 50%, rgba(255,184,28,0.35), rgba(255,184,28,0.0) 60%);
+    opacity: 0;
+    pointer-events:none;
+    transition: opacity 180ms ease;
+    z-index: -1;
+  }
+
+  .avatar.listening{ animation: logoPulse 1.8s ease-in-out infinite; }
+  .avatar.typing{ animation: logoPulse 1.2s ease-in-out infinite; }
+
+  .avatar.listening::after,
+  .avatar.typing::after{
+    opacity: 1;
+    animation: glowPulse 1.8s ease-in-out infinite;
+  }
+
+  @keyframes logoPulse{
+    0%   { transform: scale(1); }
+    50%  { transform: scale(1.05); }
+    100% { transform: scale(1); }
+  }
+  @keyframes glowPulse{
+    0%   { transform: scale(0.92); opacity: 0.18; }
+    50%  { transform: scale(1.00); opacity: 0.38; }
+    100% { transform: scale(0.92); opacity: 0.18; }
+  }
+
+  /* Bubbles */
+  .bubble{
+    max-width: 78%;
+    border-radius: 18px;
+    padding: 12px 14px;
+    line-height: 1.45;
+    font-size: 13.5px;
+    border: 1px solid transparent;
+    box-shadow: 0 10px 22px rgba(0,0,0,0.24);
+    backdrop-filter: blur(8px);
+  }
+
+  .bubble.bot{
+    background: rgba(10,106,77,0.40);
+    border-color: rgba(255,184,28,0.28);
+    border-bottom-left-radius: 8px;
+  }
+
+  .bubble.user{
+    background: linear-gradient(180deg, rgba(255,184,28,0.96) 0%, rgba(212,164,65,0.92) 100%);
+    color: #141414;
+    font-weight: 800;
+    border-color: rgba(0,0,0,0.12);
+    border-bottom-right-radius: 8px;
+    max-width: 86%;
+  }
+
+  /* Quick replies */
+  .quick{
+    margin-left: 46px;
+    display:flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 12px;
+    margin-bottom: 6px;
+  }
+
+  .qr{
+    border: 1px solid rgba(255,184,28,0.45);
+    background: rgba(0,0,0,0.28);
+    color: rgba(255,255,255,0.88);
+    padding: 10px 12px;
+    border-radius: var(--r-pill);
+    font-size: 12px;
+    font-weight: 850;
+    letter-spacing: 0.2px;
+    cursor: pointer;
+    transition: transform 160ms ease, background 160ms ease, border-color 160ms ease;
+    display:flex;
+    align-items:center;
+    gap: 8px;
+  }
+
+  .qr .ico{
+    width: 18px; height: 18px;
     border-radius: var(--r-pill);
     display:flex; align-items:center; justify-content:center;
     background: rgba(255,184,28,0.18);
     border: 1px solid rgba(255,184,28,0.22);
-    font-size: 15px;
-    flex-shrink: 0;
-}
+    font-size: 12px;
+  }
+
+  .qr:hover{
+    background: rgba(255,184,28,0.10);
+    border-color: rgba(255,184,28,0.70);
+    transform: translateY(-1px);
+  }
+  .qr:active{ transform: translateY(0); }
+
+  .qr:focus-visible{
+    outline: 2px solid var(--gold);
+    outline-offset: 2px;
+  }
+
+  /* Typing dots */
+  .typing{ display:inline-flex; gap:6px; align-items:center; }
+  .dot{
+    width: 6px;
+    height: 6px;
+    border-radius: var(--r-pill);
+    background: rgba(255,255,255,0.85);
+    animation: bounce 1.2s infinite;
+  }
+  .dot:nth-child(2){ animation-delay: 0.15s; }
+  .dot:nth-child(3){ animation-delay: 0.3s; }
+  @keyframes bounce{
+    0%, 70%, 100% { transform: translateY(0); opacity: 0.55; }
+    35% { transform: translateY(-6px); opacity: 1; }
+  }
+
+  /* Reduce motion */
+  @media (prefers-reduced-motion: reduce){
+    *, *::before, *::after{
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
+
+  /* Bottom info bar */
+  .disclaimer{
+    position: relative;
+    z-index: 2;
+    background: rgba(0,0,0,0.78);
+    border-top: 1px solid rgba(255,184,28,0.28);
+    padding: 12px 16px;
+    display:flex;
+    align-items:center;
+    justify-content: space-between;
+    gap: 12px;
+  }
+
+  .disc-left{
+    display:flex;
+    align-items:flex-start;
+    gap: 10px;
+    min-width: 0;
+  }
+
+  .disc-i{
+    width: 22px; height: 22px;
+    border-radius: var(--r-pill);
+    border: 1px solid rgba(255,184,28,0.55);
+    color: var(--gold);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-weight: 950;
+    font-size: 12px;
+    margin-top: 1px;
+    flex: 0 0 auto;
+    background: rgba(255,184,28,0.08);
+  }
+
+  .disc-text{
+    font-size: 11px;
+    line-height: 1.25;
+    color: rgba(255,255,255,0.86);
+    overflow:hidden;
+    display:-webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+  }
+
+  .disc-btn{
+    flex: 0 0 auto;
+    border: 1px solid rgba(255,184,28,0.70);
+    background: rgba(255,184,28,0.10);
+    color: rgba(255,255,255,0.90);
+    padding: 9px 12px;
+    border-radius: var(--r-pill);
+    font-size: 12px;
+    font-weight: 900;
+    cursor:pointer;
+    transition: transform 160ms ease, background 160ms ease, border-color 160ms ease;
+  }
+  .disc-btn:hover{
+    background: rgba(255,184,28,0.16);
+    border-color: rgba(255,184,28,0.88);
+    transform: translateY(-1px);
+  }
+  .disc-btn:active{ transform: translateY(0); }
+
+  .disc-btn:focus-visible{
+    outline: 2px solid var(--gold);
+    outline-offset: 2px;
+  }
+
+  /* Input */
+  .input{
+    position: relative;
+    z-index: 2;
+    background: rgba(0,0,0,0.92);
+    border-top: 1px solid rgba(255,184,28,0.16);
+    padding: 14px 16px;
+    display:flex;
+    align-items:center;
+    gap: 12px;
+  }
+
+  .field{
+    flex: 1;
+    height: 50px;
+    border-radius: var(--r-pill);
+    border: 1px solid rgba(255,184,28,0.55);
+    background: rgba(255,255,255,0.06);
+    display:flex;
+    align-items:center;
+    padding: 0 14px;
+    transition: box-shadow 160ms ease, border-color 160ms ease, background 160ms ease;
+  }
+
+  .field:focus-within{
+    border-color: rgba(255,184,28,0.95);
+    background: rgba(255,255,255,0.08);
+    box-shadow: 0 0 0 3px rgba(255,184,28,0.14);
+  }
+
+  .field input{
+    width:100%;
+    background: transparent;
+    border: none;
+    outline: none;
+    color: rgba(255,255,255,0.95);
+    font-size: 14px;
+  }
+  .field input::placeholder{ color: rgba(255,255,255,0.40); }
+
+  .send{
+    width: 50px;
+    height: 50px;
+    border-radius: var(--r-pill);
+    border: 0;
+    cursor: pointer;
+    background: linear-gradient(180deg, rgba(11,176,115,1) 0%, rgba(10,106,77,1) 100%);
+    box-shadow: 0 10px 22px rgba(0,0,0,0.30);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    color: white;
+    font-size: 18px;
+    font-weight: 950;
+    transition: transform 160ms ease, box-shadow 160ms ease, filter 160ms ease;
+  }
+
+  .send:hover{
+    transform: translateY(-1px);
+    box-shadow: 0 12px 26px rgba(0,0,0,0.34);
+    filter: brightness(1.02);
+  }
+  .send:active{ transform: translateY(0); }
+
+  .send:focus-visible{
+    outline: 2px solid var(--gold);
+    outline-offset: 2px;
+  }
+
+  /* Modal */
+  .modal{
+    position:absolute;
+    inset:0;
+    background: rgba(0,0,0,0.62);
+    display:none;
+    align-items:flex-end;
+    justify-content:center;
+    padding: 14px;
+    z-index: 10;
+  }
+
+  .modal-card{
+    width:100%;
+    border-radius: 20px;
+    background: rgba(10,10,10,0.96);
+    border: 1px solid rgba(255,184,28,0.38);
+    box-shadow: 0 18px 44px rgba(0,0,0,0.55);
+    padding: 14px;
+  }
+
+  .modal-card h4{
+    font-size: 12px;
+    margin-bottom: 6px;
+    color: rgba(255,184,28,0.95);
+    letter-spacing: 0.6px;
+    text-transform: uppercase;
+  }
+
+  .modal-card p{
+    font-size: 12px;
+    line-height: 1.45;
+    color: rgba(255,255,255,0.90);
+    margin-bottom: 10px;
+  }
+
+  .modal-actions{
+    display:flex;
+    justify-content:space-between;
+    gap: 10px;
+    flex-wrap: wrap;
+    align-items: center;
+    margin-top: 8px;
+  }
+
+  .modal-small{
+    font-size: 11px;
+    color: rgba(255,255,255,0.70);
+    line-height: 1.25;
+    max-width: 62%;
+  }
+
+  .modal-close{
+    border: 1px solid rgba(255,184,28,0.72);
+    background: rgba(255,184,28,0.14);
+    color: rgba(255,255,255,0.90);
+    padding: 10px 14px;
+    border-radius: var(--r-pill);
+    font-weight: 900;
+    cursor:pointer;
+    font-size: 12px;
+    transition: transform 160ms ease, background 160ms ease, border-color 160ms ease;
+  }
+
+  .modal-close:hover{
+    background: rgba(255,184,28,0.22);
+    border-color: rgba(255,184,28,0.92);
+    transform: translateY(-1px);
+  }
+  .modal-close:active{ transform: translateY(0); }
+
+  .modal-close:focus-visible{
+    outline: 2px solid var(--gold);
+    outline-offset: 2px;
+  }
+
+  /* Scrollbar */
+  .chat::-webkit-scrollbar{ width: 8px; }
+  .chat::-webkit-scrollbar-track{ background: rgba(0,0,0,0.25); }
+  .chat::-webkit-scrollbar-thumb{ background: rgba(255,184,28,0.55); border-radius: var(--r-pill); }
+
+  /* Small screens */
+  @media (max-width: 380px){
+    .title{ font-size: 13px; }
+    .subtitle{ font-size: 11px; }
+    .bubble{ font-size: 13px; }
+  }
+
+  /* Landscape or very short viewports */
+  @media (max-height: 500px){
+    .header{ padding: 10px 16px 8px 16px; }
+    .persona{ padding: 8px 16px; }
+    .chat{ min-height: 120px; }
+    .disclaimer{ padding: 8px 16px; }
+    .input{ padding: 10px 16px; }
+  }
+</style>
+</head>
+
+<body>
+  <div class="phone" role="application" aria-label="Klipdrift chatbot demo">
+
+    <a class="skip-link" href="#input">Skip to chat input</a>
+
+    <img class="sponsor-img" src="springbok-proud-sponsor.svg" alt="Springboks proud sponsor" aria-label="Springboks proud sponsor" onerror="this.style.display='none'" />
+
+    <div class="header">
+      <div class="header-top">
+        <div class="brand">
+          <div class="logo-badge" title="Klipdrift">
+            <img src="klipdrift-logo.svg" alt="Klipdrift" onerror="this.dataset.failed='true'" />
+            <span class="logo-fallback" aria-hidden="true">K</span>
+          </div>
+          <div class="titles">
+            <div class="title">KLIPPIES BOT</div>
+            <div class="subtitle">THE GOLD BEHIND THE GREEN</div>
+          </div>
+        </div>
+        <div style="width: 42px;" aria-hidden="true"></div>
+      </div>
+      <div class="gold-rule" aria-hidden="true"></div>
+    </div>
+
+    <div class="persona">
+      <label class="persona-label" for="persona" id="persona-label">PERSONALITY</label>
+      <div class="persona-wrap">
+        <select class="persona-select" id="persona" aria-labelledby="persona-label">
+          <option value="host" selected>Match Day Host, warm, premium, welcoming</option>
+          <option value="analyst">Rugby Analyst, stats, tactics, fixtures</option>
+          <option value="bartender">Perfect Serve Bartender, cocktails, pairings</option>
+          <option value="storyteller">Bok Storyteller, hype, heritage, culture</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="chat" id="chat" role="log" aria-label="Chat history" aria-live="polite" aria-relevant="additions"></div>
+
+    <div class="disclaimer" role="contentinfo">
+      <div class="disc-left">
+        <div class="disc-i" aria-hidden="true">i</div>
+        <div class="disc-text">
+          Enjoy responsibly. Not for sale to persons under 18.
+        </div>
+      </div>
+      <button class="disc-btn" type="button" id="learnMore">Learn More</button>
+    </div>
+
+    <div class="input" aria-label="Message composer">
+      <div class="field">
+        <input id="input" type="text" placeholder="Type your message..." autocomplete="off" aria-label="Type your message" />
+      </div>
+      <button class="send" type="button" id="sendBtn" aria-label="Send message">➤</button>
+    </div>
+
+    <div class="modal" id="modal" aria-hidden="true">
+      <div class="modal-card" role="dialog" aria-modal="true" aria-labelledby="modal-title-privacy">
+        <h4 id="modal-title-privacy">Privacy Notice</h4>
+        <p>
+          No cookies are used during the making of this experience. No personal identifying information is recorded or used beyond temporary processing. Any temporary processing data is removed after 24 hours.
+        </p>
+        <h4>Responsible Use</h4>
+        <p>
+          Enjoy responsibly. Not for sale to persons under 18.
+        </p>
+
+        <div class="modal-actions">
+          <div class="modal-small">
+            Demo only, this is a look and feel prototype. All responses are local.
+          </div>
+          <button class="modal-close" type="button" id="closeModal">Close</button>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+<script>
+  let searchIndex = null; // Store loaded search index
+
+  const CONTENT = {
+    intro: `
+      <strong>Howzit! Welcome to Klipdrift.</strong><br /><br />
+      I am here to help you explore our limited edition Springboks 10 Year Old Brandy,
+      celebrating South African excellence on and off the field.<br /><br />
+      <strong>How can I assist you today?</strong>
+    `,
+
+    quickReplies: [
+      { label: "About the 10YO",  icon: "🥃", query: "About the 10YO"  },
+      { label: "Tasting Notes",   icon: "👃", query: "Tasting Notes"   },
+      { label: "Find Stockists",  icon: "📍", query: "Find Stockists"  },
+      { label: "Perfect Serve",   icon: "🧊", query: "Perfect Serve"   },
+    ],
+
+    voices: {
+      host: {
+        opener: "Howzit, you are in the right place.",
+        closer: "Want tasting notes, the perfect serve, or where to find stock?"
+      },
+      analyst: {
+        opener: "Right, quick breakdown.",
+        closer: "Ask for fixtures, tactics, or key match day talking points."
+      },
+      bartender: {
+        opener: "Say less, here is a proper pour.",
+        closer: "Want neat, rocks, or a clean and simple mix?"
+      },
+      storyteller: {
+        opener: "Now we are talking.",
+        closer: "Want a match day story, a serve ritual, or the 10YO details?"
+      }
+    },
+
+    replies: {
+      about(v){
+        return `
+          <strong>${escapeHtml(v.opener)}</strong><br /><br />
+          The Springboks 10 Year Old Limited Edition is a milestone sip, aged for a decade
+          for deeper oak warmth, vanilla notes, gentle spice, and a smooth confident finish.<br /><br />
+          Built for big games and better company.<br /><br />
+          <strong>${escapeHtml(v.closer)}</strong>
+        `;
+      },
+      tasting(){
+        return `
+          <strong>Tasting Notes</strong><br /><br />
+          Warm oak, vanilla, gentle spice, and a richer dried fruit depth,
+          finishing smooth and steady.<br /><br />
+          Enjoy responsibly.
+        `;
+      },
+      stockists(){
+        return `
+          <strong>Find Stockists</strong><br /><br />
+          Drop your city or suburb and I will point you in the right direction
+          for nearby options.
+        `;
+      },
+      serve(persona){
+        if (persona === "bartender"){
+          return `
+            <strong>Perfect Serve</strong><br /><br />
+            Neat in a tumbler for the full character, or over ice with a slow swirl.
+            For a simple mix, ginger ale and a citrus peel keeps it clean and premium.<br /><br />
+            Enjoy responsibly.
+          `;
+        }
+        return `
+          <strong>Perfect Serve</strong><br /><br />
+          Neat in a tumbler, or on the rocks if you like it crisp.
+          Take it slow, match day moments deserve time.<br /><br />
+          Enjoy responsibly.
+        `;
+      },
+      fallback(){
+        return `Tap a quick option, or ask about the 10 Year Old, tasting notes, stockists, or the perfect serve.`;
+      }
+    }
+  };
+
+  const chat          = document.getElementById("chat");
+  const inputEl       = document.getElementById("input");
+  const sendBtn       = document.getElementById("sendBtn");
+  const personaSelect = document.getElementById("persona");
+  const modal         = document.getElementById("modal");
+  const learnMoreBtn  = document.getElementById("learnMore");
+  const closeModalBtn = document.getElementById("closeModal");
+
+  let previousFocus = null;
+
+  function scrollToBottom(){
+    chat.scrollTop = chat.scrollHeight;
+  }
+
+  function escapeHtml(str){
+    const el = document.createElement("span");
+    el.textContent = String(str);
+    return el.innerHTML;
+  }
+
+  function getVoice(){
+    return CONTENT.voices[personaSelect.value] || CONTENT.voices.host;
+  }
+
+  function createRow(type){
+    const row = document.createElement("div");
+    row.className = type === "user" ? "row user" : "row";
+    return row;
+  }
+
+  function buildAvatar(stateClass){
+    const wrap = document.createElement("div");
+    wrap.className = "avatar" + (stateClass ? ` ${stateClass}` : "");
+
+    const img = document.createElement("img");
+    img.src = "chat-bot-avatar.svg";
+    img.alt = "Klipdrift bot";
+    img.onerror = function(){ this.dataset.failed = "true"; };
+
+    const fallback = document.createElement("span");
+    fallback.className = "avatar-fallback";
+    fallback.setAttribute("aria-hidden", "true");
+    fallback.textContent = "K";
+
+    wrap.appendChild(img);
+    wrap.appendChild(fallback);
+    return wrap;
+  }
+
+  function buildBubble(type, html){
+    const bubble = document.createElement("div");
+    bubble.className = `bubble ${type}`;
+    bubble.innerHTML = html;
+    return bubble;
+  }
+
+  function addBotMessage(html, state){
+    const row = createRow("bot");
+    const avatar = buildAvatar(state);
+    const contentWrap = document.createElement("div");
+    contentWrap.style.minWidth = "0";
+    contentWrap.appendChild(buildBubble("bot", html));
+    row.appendChild(avatar);
+    row.appendChild(contentWrap);
+    chat.appendChild(row);
+    scrollToBottom();
+    return { row, avatar };
+  }
+
+  function addUserMessage(text){
+    const row = createRow("user");
+    row.appendChild(buildBubble("user", escapeHtml(text)));
+    chat.appendChild(row);
+    scrollToBottom();
+  }
+
+  function addTypingIndicator(){
+    const row = createRow("bot");
+    const avatar = buildAvatar("typing");
+    const contentWrap = document.createElement("div");
+    contentWrap.style.minWidth = "0";
+
+    const bubble = buildBubble("bot", "");
+    const typing = document.createElement("span");
+    typing.className = "typing";
+    typing.setAttribute("aria-label", "Bot is typing");
+    typing.innerHTML = '<span class="dot"></span><span class="dot"></span><span class="dot"></span>';
+    bubble.appendChild(typing);
+    contentWrap.appendChild(bubble);
+
+    row.appendChild(avatar);
+    row.appendChild(contentWrap);
+    chat.appendChild(row);
+    scrollToBottom();
+    return row;
+  }
+
+  function buildQuickReplies(){
+    const wrap = document.createElement("div");
+    wrap.className = "quick";
+    wrap.setAttribute("aria-label", "Quick actions");
+
+    CONTENT.quickReplies.forEach(qr => {
+      const btn = document.createElement("button");
+      btn.className = "qr";
+      btn.type = "button";
+      btn.dataset.q = qr.query;
+      btn.innerHTML = `<span class="ico" aria-hidden="true">${qr.icon}</span> ${escapeHtml(qr.label)}`;
+      wrap.appendChild(btn);
+    });
+
+    return wrap;
+  }
+
+  function removeListeningState(avatar, delay){
+    setTimeout(() => {
+      if (avatar) avatar.classList.remove("listening");
+    }, delay);
+  }
+
+  function searchIndexPages(query){
+    if (!searchIndex || !searchIndex.pages) return [];
+    
+    const q = query.toLowerCase().trim();
+    const queryWords = q.split(/\s+/);
+    const results = [];
+
+    searchIndex.pages.forEach(page => {
+      let score = 0;
+
+      // Check title match (highest weight)
+      if (page.title && page.title.toLowerCase().includes(q)) {
+        score += 10;
+      }
+      queryWords.forEach(word => {
+        if (page.title && page.title.toLowerCase().includes(word)) {
+          score += 3;
+        }
+      });
+
+      // Check keywords match
+      if (page.keywords && Array.isArray(page.keywords)) {
+        page.keywords.forEach(keyword => {
+          const kw = keyword.toLowerCase();
+          if (kw === q) {
+            score += 8;
+          } else if (kw.includes(q) || q.includes(kw)) {
+            score += 5;
+          }
+          queryWords.forEach(word => {
+            if (kw.includes(word) || word.includes(kw)) {
+              score += 2;
+            }
+          });
+        });
+      }
+
+      // Check category match
+      if (page.category && searchIndex.categories && searchIndex.categories[page.category]) {
+        const category = searchIndex.categories[page.category];
+        
+        // Match against category label
+        if (category.label && category.label.toLowerCase().includes(q)) {
+          score += 6;
+        }
+        
+        // Match against category keywords
+        if (category.keywords && Array.isArray(category.keywords)) {
+          category.keywords.forEach(catKeyword => {
+            const ck = catKeyword.toLowerCase();
+            if (ck === q) {
+              score += 7;
+            } else if (ck.includes(q) || q.includes(ck)) {
+              score += 4;
+            }
+            queryWords.forEach(word => {
+              if (ck.includes(word) || word.includes(ck)) {
+                score += 2;
+              }
+            });
+          });
+        }
+      }
+
+      // Check source match (for queries like "klipdrift products" or "rugby")
+      if (page.source) {
+        const src = page.source.toLowerCase();
+        if (q.includes(src) || src.includes(q)) {
+          score += 3;
+        }
+        queryWords.forEach(word => {
+          if (src.includes(word) || word.includes(src)) {
+            score += 1;
+          }
+        });
+      }
+
+      if (score > 0) {
+        results.push({ page, score });
+      }
+    });
+
+    // Sort by score descending
+    results.sort((a, b) => b.score - a.score);
+
+    return results.map(r => r.page);
+  }
+
+  function formatSearchResults(pages, voice){
+    if (!pages || pages.length === 0) return null;
+
+    const maxResults = 5;
+    const topPages = pages.slice(0, maxResults);
+    
+    let html = `<strong>${escapeHtml(voice.opener)}</strong><br /><br />`;
+    
+    if (topPages.length === 1) {
+      const page = topPages[0];
+      const categoryLabel = searchIndex.categories && searchIndex.categories[page.category] 
+        ? searchIndex.categories[page.category].label 
+        : page.category;
+      
+      html += `I found this for you:<br /><br />`;
+      html += `<strong>${escapeHtml(page.title)}</strong><br />`;
+      html += `<em>${escapeHtml(categoryLabel)}</em><br />`;
+      html += `<a href="${escapeHtml(page.url)}" target="_blank" rel="noopener noreferrer">${escapeHtml(page.url)}</a><br /><br />`;
+    } else {
+      html += `Here are ${topPages.length} results I found:<br /><br />`;
+      topPages.forEach((page, idx) => {
+        const categoryLabel = searchIndex.categories && searchIndex.categories[page.category] 
+          ? searchIndex.categories[page.category].label 
+          : page.category;
+        
+        html += `<strong>${idx + 1}. ${escapeHtml(page.title)}</strong><br />`;
+        html += `<em>${escapeHtml(categoryLabel)}</em><br />`;
+        html += `<a href="${escapeHtml(page.url)}" target="_blank" rel="noopener noreferrer">${escapeHtml(page.url)}</a><br /><br />`;
+      });
+    }
+    
+    html += `<strong>${escapeHtml(voice.closer)}</strong>`;
+    
+    return html;
+  }
+
+  function resolveReply(text){
+    const t = (text || "").toLowerCase();
+    const v = getVoice();
+    const p = personaSelect.value;
+
+    // Check for existing hardcoded quick reply patterns first
+    if (t.includes("10yo") || t.includes("10 year") || t.includes("about")){
+      return CONTENT.replies.about(v);
+    }
+    if (t.includes("tasting")){
+      return CONTENT.replies.tasting();
+    }
+    if (t.includes("stock") || t.includes("find")){
+      return CONTENT.replies.stockists();
+    }
+    if (t.includes("serve") || t.includes("perfect")){
+      return CONTENT.replies.serve(p);
+    }
+
+    // Try dynamic search if index is loaded
+    if (searchIndex) {
+      const results = searchIndexPages(text);
+      if (results.length > 0) {
+        return formatSearchResults(results, v);
+      }
+    }
+
+    // Fallback
+    return CONTENT.replies.fallback();
+  }
+
+  function sendMessage(text){
+    const clean = (text || "").trim();
+    if (!clean) return;
+
+    addUserMessage(clean);
+    const typingRow = addTypingIndicator();
+
+    inputEl.value = "";
+    inputEl.focus();
+
+    const reply = resolveReply(clean);
+
+    setTimeout(() => {
+      typingRow.remove();
+
+      const { avatar } = addBotMessage(reply, "listening");
+
+      const qr = buildQuickReplies();
+      chat.appendChild(qr);
+      scrollToBottom();
+
+      removeListeningState(avatar, 850);
+    }, 520);
+  }
+
+  function openModal(){
+    previousFocus = document.activeElement;
+    modal.style.display = "flex";
+    modal.setAttribute("aria-hidden", "false");
+    closeModalBtn.focus();
+    modal.addEventListener("keydown", trapFocus);
+  }
+
+  function closeModalFn(){
+    modal.style.display = "none";
+    modal.setAttribute("aria-hidden", "true");
+    modal.removeEventListener("keydown", trapFocus);
+    if (previousFocus) previousFocus.focus();
+  }
+
+  function trapFocus(e){
+    if (e.key === "Escape"){
+      e.preventDefault();
+      closeModalFn();
+      return;
+    }
+    if (e.key !== "Tab") return;
+
+    const focusable = modal.querySelectorAll(
+      'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'
+    );
+    if (!focusable.length) return;
+
+    const first = focusable[0];
+    const last  = focusable[focusable.length - 1];
+
+    if (e.shiftKey){
+      if (document.activeElement === first){
+        e.preventDefault();
+        last.focus();
+      }
+    } else {
+      if (document.activeElement === last){
+        e.preventDefault();
+        first.focus();
+      }
+    }
+  }
+
+  chat.addEventListener("click", (e) => {
+    const qr = e.target.closest(".qr");
+    if (qr){
+      const q = qr.dataset.q || qr.textContent.trim();
+      sendMessage(q);
+    }
+  });
+
+  sendBtn.addEventListener("click", () => sendMessage(inputEl.value));
+
+  inputEl.addEventListener("keydown", (e) => {
+    if (e.key === "Enter"){
+      e.preventDefault();
+      sendMessage(inputEl.value);
+    }
+  });
+
+  learnMoreBtn.addEventListener("click", openModal);
+  closeModalBtn.addEventListener("click", closeModalFn);
+
+  modal.addEventListener("click", (e) => {
+    if (e.target === modal) closeModalFn();
+  });
+
+  personaSelect.addEventListener("change", () => {
+    const label = escapeHtml(personaSelect.options[personaSelect.selectedIndex].text);
+    const { avatar } = addBotMessage(
+      `Sorted. I am now speaking in <strong>${label}</strong> mode.`,
+      "listening"
+    );
+    removeListeningState(avatar, 850);
+  });
+
+  document.querySelectorAll(".phone img").forEach(img => {
+    img.addEventListener("error", function(){
+      this.dataset.failed = "true";
+    }, { once: true });
+  });
+
+  (function init(){
+    // Load search index
+    fetch("search_index.json")
+      .then(response => {
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        return response.json();
+      })
+      .then(data => {
+        searchIndex = data;
+        console.log(`Search index loaded: ${data.total_entries} entries`);
+      })
+      .catch(error => {
+        console.warn("Failed to load search_index.json, using hardcoded responses only:", error);
+      });
+
+    const { avatar } = addBotMessage(CONTENT.intro, "listening");
+
+    const qr = buildQuickReplies();
+    chat.appendChild(qr);
+    scrollToBottom();
+
+    removeListeningState(avatar, 900);
+    inputEl.focus();
+  })();
+</script>
+</body>
+</html>
