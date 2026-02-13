@@ -46,7 +46,7 @@
 
   /* Phone shell */
   .phone{
-    width: 100vw;
+    width: 100%;
     min-height: 100vh;
     height: 100vh;
     border-radius: 0;
@@ -723,18 +723,11 @@
 
   /* Landscape or very short viewports */
   @media (max-height: 500px){
-    .phone{ height: 100vh; }
     .header{ padding: 10px 16px 8px 16px; }
     .persona{ padding: 8px 16px; }
     .chat{ min-height: 120px; }
     .disclaimer{ padding: 8px 16px; }
     .input{ padding: 10px 16px; }
-  }
-  
-  @supports (height: 100dvh) {
-    @media (max-height: 500px){
-      .phone{ height: 100dvh; }
-    }
   }
 </style>
 </head>
