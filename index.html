@@ -36,22 +36,20 @@
 
   body{
     font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-    background: #e9e9e9;
+    background: #071f17;
     min-height: 100vh;
     display: flex;
     justify-content: center;
-    padding: 20px;
+    padding: 0;
     color: var(--text);
   }
 
   /* Phone shell */
   .phone{
-    width: 390px;
-    max-width: 95vw;
-    min-height: 480px;
-    height: 770px;
-    max-height: 92vh;
-    border-radius: var(--r-lg);
+    width: 100vw;
+    min-height: 100vh;
+    height: 100vh;
+    border-radius: 0;
     overflow: hidden;
     background:
       radial-gradient(1200px 700px at 20% 0%, rgba(255,184,28,0.10) 0%, rgba(0,0,0,0) 55%),
@@ -61,6 +59,14 @@
     display: flex;
     flex-direction: column;
     position: relative;
+  }
+  
+  /* Support dynamic viewport height where available */
+  @supports (height: 100dvh) {
+    .phone {
+      min-height: 100dvh;
+      height: 100dvh;
+    }
   }
 
   .phone::before{
@@ -717,12 +723,18 @@
 
   /* Landscape or very short viewports */
   @media (max-height: 500px){
-    .phone{ height: auto; max-height: 100vh; }
+    .phone{ height: 100vh; }
     .header{ padding: 10px 16px 8px 16px; }
     .persona{ padding: 8px 16px; }
     .chat{ min-height: 120px; }
     .disclaimer{ padding: 8px 16px; }
     .input{ padding: 10px 16px; }
+  }
+  
+  @supports (height: 100dvh) {
+    @media (max-height: 500px){
+      .phone{ height: 100dvh; }
+    }
   }
 </style>
 </head>
