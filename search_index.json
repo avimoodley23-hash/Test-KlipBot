@@ -1,0 +1,722 @@
+{
+  "version": "1.0",
+  "last_updated": "2026-02-09T17:27:32Z",
+  "total_entries": 39,
+  "sources": [
+    {
+      "id": "klipdrift",
+      "name": "Klipdrift",
+      "base_url": "https://www.klipdrift.co.za",
+      "description": "Official Klipdrift brandy website"
+    },
+    {
+      "id": "sarugby",
+      "name": "SA Rugby",
+      "base_url": "https://saru-umbraco.azurewebsites.net",
+      "description": "South African Rugby Union official website"
+    }
+  ],
+  "categories": {
+    "products": {
+      "label": "Products & Shop",
+      "keywords": [
+        "buy",
+        "shop",
+        "price",
+        "product",
+        "brandy",
+        "premium",
+        "export",
+        "copper"
+      ]
+    },
+    "promotions": {
+      "label": "Promotions & Competitions",
+      "keywords": [
+        "competition",
+        "win",
+        "giveaway",
+        "hamper",
+        "prize",
+        "promotional"
+      ]
+    },
+    "terms": {
+      "label": "Terms & Conditions",
+      "keywords": [
+        "terms",
+        "conditions",
+        "rules",
+        "legal"
+      ]
+    },
+    "general_info": {
+      "label": "General Information",
+      "keywords": [
+        "contact",
+        "about",
+        "signup",
+        "health",
+        "alcohol"
+      ]
+    },
+    "news": {
+      "label": "News & Articles",
+      "keywords": [
+        "news",
+        "article",
+        "update",
+        "announcement"
+      ]
+    },
+    "teams": {
+      "label": "Teams & Players",
+      "keywords": [
+        "springboks",
+        "blitzboks",
+        "boks",
+        "team",
+        "player",
+        "squad",
+        "sevens"
+      ]
+    },
+    "matches": {
+      "label": "Matches & Results",
+      "keywords": [
+        "match",
+        "test",
+        "championship",
+        "cup",
+        "final",
+        "result",
+        "highlights"
+      ]
+    },
+    "governance": {
+      "label": "Governance & Admin",
+      "keywords": [
+        "governance",
+        "policy",
+        "privacy",
+        "referees",
+        "coaching",
+        "documents"
+      ]
+    },
+    "video": {
+      "label": "Video Hub",
+      "keywords": [
+        "video",
+        "highlights",
+        "watch",
+        "replay"
+      ]
+    },
+    "events": {
+      "label": "Events & Tickets",
+      "keywords": [
+        "ticket",
+        "event",
+        "hospitality",
+        "sevens",
+        "cape town"
+      ]
+    }
+  },
+  "pages": [
+    {
+      "url": "https://www.klipdrift.co.za/home",
+      "title": "Home - Klipdrift",
+      "source": "klipdrift",
+      "category": "general_info",
+      "keywords": [
+        "home",
+        "brandy",
+        "klipdrift"
+      ],
+      "indexed_at": "2026-02-09 17:27:32"
+    },
+    {
+      "url": "https://www.klipdrift.co.za/taste-of-klipdrift",
+      "title": "Taste of Klipdrift - Klipdrift",
+      "source": "klipdrift",
+      "category": "products",
+      "keywords": [
+        "taste",
+        "brandy",
+        "klipdrift"
+      ],
+      "indexed_at": "2026-02-09 17:27:34"
+    },
+    {
+      "url": "https://www.klipdrift.co.za/shop/klipdrift-premium",
+      "title": "Klipdrift Premium - Klipdrift",
+      "source": "klipdrift",
+      "category": "products",
+      "keywords": [
+        "brandy",
+        "premium",
+        "product"
+      ],
+      "indexed_at": "2026-02-09 17:27:35"
+    },
+    {
+      "url": "https://www.klipdrift.co.za/klipdrift-cola",
+      "title": "Klipdrift Cola - Klipdrift",
+      "source": "klipdrift",
+      "category": "products",
+      "keywords": [
+        "cola",
+        "brandy",
+        "klipdrift"
+      ],
+      "indexed_at": "2026-02-09 17:27:36"
+    },
+    {
+      "url": "https://www.klipdrift.co.za/klipdrift-and-cola-zero",
+      "title": "Klipdrift and Cola Zero - Klipdrift",
+      "source": "klipdrift",
+      "category": "products",
+      "keywords": [
+        "cola",
+        "zero",
+        "zero-sugar"
+      ],
+      "indexed_at": "2026-02-09 17:27:38"
+    },
+    {
+      "url": "https://www.klipdrift.co.za/shop/klipdrift-export",
+      "title": "Klipdrift Export - Klipdrift",
+      "source": "klipdrift",
+      "category": "products",
+      "keywords": [
+        "brandy",
+        "export",
+        "product"
+      ],
+      "indexed_at": "2026-02-09 17:27:39"
+    },
+    {
+      "url": "https://www.klipdrift.co.za/terms-and-conditions",
+      "title": "Terms and Conditions - Klipdrift",
+      "source": "klipdrift",
+      "category": "terms",
+      "keywords": [
+        "conditions",
+        "terms",
+        "rules",
+        "legal"
+      ],
+      "indexed_at": "2026-02-09 17:27:40"
+    },
+    {
+      "url": "https://www.klipdrift.co.za/terms-and-conditions/klipdrift-cola-zero-sugar-hamper-facebook-and-instagram-competition",
+      "title": "Terms and Conditions - Klipdrift Cola Zero Hamper - Klipdrift",
+      "source": "klipdrift",
+      "category": "terms",
+      "keywords": [
+        "cola",
+        "competition",
+        "facebook",
+        "hamper",
+        "instagram",
+        "prize",
+        "sugar",
+        "win"
+      ],
+      "indexed_at": "2026-02-09 17:27:41"
+    },
+    {
+      "url": "https://www.klipdrift.co.za/terms-and-conditions/klipdrift-januworry-twitter-competition-rules",
+      "title": "Klipdrift Januworry Twitter Competition Rules - Klipdrift",
+      "source": "klipdrift",
+      "category": "terms",
+      "keywords": [
+        "competition",
+        "januworry",
+        "prize",
+        "rules",
+        "twitter",
+        "win"
+      ],
+      "indexed_at": "2026-02-09 17:27:43"
+    },
+    {
+      "url": "https://www.klipdrift.co.za/Terms-and-Conditions-Archive",
+      "title": "Terms and Conditions Archive - Klipdrift",
+      "source": "klipdrift",
+      "category": "terms",
+      "keywords": [
+        "archive",
+        "conditions",
+        "terms"
+      ],
+      "indexed_at": "2026-02-09 17:27:44"
+    },
+    {
+      "url": "https://www.klipdrift.co.za/Terms-and-Conditions/Klipdrift-Cotton-Fest-Johannesburg",
+      "title": "Terms and Conditions - Klipdrift Cotton Fest Johannesburg - Klipdrift",
+      "source": "klipdrift",
+      "category": "terms",
+      "keywords": [
+        "cotton",
+        "cotton-fest",
+        "event",
+        "fest",
+        "johannesburg",
+        "music"
+      ],
+      "indexed_at": "2026-02-09 17:27:45"
+    },
+    {
+      "url": "https://www.klipdrift.co.za/terms-and-conditions/klipdrift-cola-zero-sugar-ps5-competition",
+      "title": "Terms and Conditions - Klipdrift &amp; Cola Zero Sugar Ps5 Competition - Klipdrift",
+      "source": "klipdrift",
+      "category": "terms",
+      "keywords": [
+        "cola",
+        "competition",
+        "gaming",
+        "playstation",
+        "prize",
+        "ps5",
+        "sugar",
+        "win"
+      ],
+      "indexed_at": "2026-02-09 17:27:46"
+    },
+    {
+      "url": "https://www.klipdrift.co.za/terms-and-conditions/klipdrift-rocking-the-daisies-johannesburg-competition-rules",
+      "title": "Terms and Conditions - Klipdrift Rocking The Daisies Johannesburg Competition Rules - Klipdrift",
+      "source": "klipdrift",
+      "category": "terms",
+      "keywords": [
+        "competition",
+        "daisies",
+        "festival",
+        "johannesburg",
+        "music",
+        "prize",
+        "rocking",
+        "rocking-daisies"
+      ],
+      "indexed_at": "2026-02-09 17:27:47"
+    },
+    {
+      "url": "https://www.klipdrift.co.za/terms-and-conditions/klipdrift-cola-comic-con-ticket-giveaway-competitioncompetition-rules",
+      "title": "Terms and Conditions - Klipdrift &amp; Cola Comic Con Ticket Giveaway Competition Rules - Klipdrift",
+      "source": "klipdrift",
+      "category": "terms",
+      "keywords": [
+        "cola",
+        "comic",
+        "comic-con",
+        "competition",
+        "con",
+        "event",
+        "giveaway",
+        "prize"
+      ],
+      "indexed_at": "2026-02-09 17:27:48"
+    },
+    {
+      "url": "https://www.klipdrift.co.za/terms-and-conditions/klipdrift-cola-comic-con-ticket-giveaway-competition-competition-rules",
+      "title": "Terms and Conditions - Klipdrift &amp; Cola Comic Con Ticket Giveaway Competition Competition Rules - Klipdrift",
+      "source": "klipdrift",
+      "category": "terms",
+      "keywords": [
+        "cola",
+        "comic",
+        "comic-con",
+        "competition",
+        "con",
+        "event",
+        "giveaway",
+        "prize"
+      ],
+      "indexed_at": "2026-02-09 17:27:49"
+    },
+    {
+      "url": "https://www.klipdrift.co.za/terms-and-conditions/klipdrift-rocking-the-daisies-cape-towncompetition-rules",
+      "title": "Terms and Conditions - Klipdrift Rocking The Daisies Cape Town Competition Rules - Klipdrift",
+      "source": "klipdrift",
+      "category": "terms",
+      "keywords": [
+        "cape",
+        "competition",
+        "daisies",
+        "festival",
+        "music",
+        "prize",
+        "rocking",
+        "rocking-daisies"
+      ],
+      "indexed_at": "2026-02-09 17:27:51"
+    },
+    {
+      "url": "https://www.klipdrift.co.za/terms-and-conditions/klipdrift-colazero-sugarcomic-con-ticket-giveaway-competition-rules",
+      "title": "Terms and Conditions - Klipdrift &amp; Cola Zero Sugar:comic Con Ticket Giveaway Competition Rules - Klipdrift",
+      "source": "klipdrift",
+      "category": "terms",
+      "keywords": [
+        "cola",
+        "colazero",
+        "comic",
+        "comic-con",
+        "competition",
+        "con",
+        "event",
+        "giveaway"
+      ],
+      "indexed_at": "2026-02-09 17:27:52"
+    },
+    {
+      "url": "https://www.klipdrift.co.za/terms-and-conditions/klipdrift-cola-zero-sugar-comic-con-africa-playstation-5-competition-rules",
+      "title": "Terms and Conditions - Klipdrift &amp; Cola Zero Sugar: Comic Con Africa Playstation 5 Competition Rules - Klipdrift",
+      "source": "klipdrift",
+      "category": "terms",
+      "keywords": [
+        "africa",
+        "cola",
+        "comic",
+        "comic-con",
+        "competition",
+        "con",
+        "event",
+        "gaming"
+      ],
+      "indexed_at": "2026-02-09 17:27:53"
+    },
+    {
+      "url": "https://www.klipdrift.co.za/terms-and-conditions/klipdrift-cola-zero-sugar-hamper-twitter-competition",
+      "title": "Terms and Conditions - Klipdrift &amp; Cola Zero Sugar Hamper Twitter Competition - Klipdrift",
+      "source": "klipdrift",
+      "category": "terms",
+      "keywords": [
+        "cola",
+        "competition",
+        "hamper",
+        "prize",
+        "sugar",
+        "twitter",
+        "win",
+        "zero"
+      ],
+      "indexed_at": "2026-02-09 17:27:54"
+    },
+    {
+      "url": "https://www.klipdrift.co.za/terms-and-conditions/klipdrift-rocking-the-daisies-r5000-hamper-competition-rules",
+      "title": "Terms and Conditions - Klipdrift Rocking The Daisies R5000 Hamper Competition Rules - Klipdrift",
+      "source": "klipdrift",
+      "category": "terms",
+      "keywords": [
+        "competition",
+        "daisies",
+        "festival",
+        "hamper",
+        "music",
+        "prize",
+        "rocking",
+        "rocking-daisies"
+      ],
+      "indexed_at": "2026-02-09 17:27:55"
+    },
+    {
+      "url": "https://www.klipdrift.co.za/terms-and-conditions/klipdrift-cola-zero-sugar-brandcrafters-comic-con-africa-competition-rules",
+      "title": "Terms and Conditions - Klipdrift &amp; Cola Zero Sugar: Brandcrafters Comic Con Africa Competition Rules - Klipdrift",
+      "source": "klipdrift",
+      "category": "terms",
+      "keywords": [
+        "africa",
+        "brandcrafters",
+        "cola",
+        "comic",
+        "comic-con",
+        "competition",
+        "con",
+        "event"
+      ],
+      "indexed_at": "2026-02-09 17:27:57"
+    },
+    {
+      "url": "https://www.klipdrift.co.za/terms-and-conditions/klipdrift-on-trade-scratch-2-win-promotional-competition",
+      "title": "Klipdrift - Terms and Conditions - Klipdrift On-trade Scratch 2 Win Promotional Competition - Klipdrift",
+      "source": "klipdrift",
+      "category": "terms",
+      "keywords": [
+        "competition",
+        "conditions",
+        "prize",
+        "promotional",
+        "scratch",
+        "terms",
+        "trade",
+        "win"
+      ],
+      "indexed_at": "2026-02-09 17:27:58"
+    },
+    {
+      "url": "https://www.klipdrift.co.za/terms-and-conditions/klipdrift-mastertouch-weber-promotional-competition",
+      "title": "Terms and Conditions - Klipdrift Mastertouch Weber Promotional Competition - Klipdrift",
+      "source": "klipdrift",
+      "category": "terms",
+      "keywords": [
+        "competition",
+        "mastertouch",
+        "prize",
+        "promotional",
+        "weber",
+        "win"
+      ],
+      "indexed_at": "2026-02-09 17:27:59"
+    },
+    {
+      "url": "https://www.klipdrift.co.za/terms-and-conditions/klipdrift-unklipped-unklippedpianochallenge-cocktail-kit-instagram-competition-rules",
+      "title": "Terms and Conditions - Klipdrift Unklipped #unklippedpianochallenge Cocktail Kit Instagram – Competition Rules - Klipdrift",
+      "source": "klipdrift",
+      "category": "terms",
+      "keywords": [
+        "cocktail",
+        "competition",
+        "instagram",
+        "kit",
+        "prize",
+        "rules",
+        "unklipped",
+        "unklippedpianochallenge"
+      ],
+      "indexed_at": "2026-02-09 17:28:00"
+    },
+    {
+      "url": "https://www.klipdrift.co.za/terms-and-conditions/uber-eats",
+      "title": "Terms and Conditions - Uber Eats - Klipdrift",
+      "source": "klipdrift",
+      "category": "terms",
+      "keywords": [
+        "eats",
+        "uber",
+        "terms",
+        "rules",
+        "legal"
+      ],
+      "indexed_at": "2026-02-09 17:28:01"
+    },
+    {
+      "url": "https://www.klipdrift.co.za/terms-and-conditions/klipdrift-cola-zero-sugar-retail-ps5-competition-rules",
+      "title": "Terms and Conditions - Klipdrift &amp; Cola Zero Sugar Retail Ps5™ – Competition Rules - Klipdrift",
+      "source": "klipdrift",
+      "category": "terms",
+      "keywords": [
+        "cola",
+        "competition",
+        "gaming",
+        "playstation",
+        "prize",
+        "ps5",
+        "retail",
+        "rules"
+      ],
+      "indexed_at": "2026-02-09 17:28:02"
+    },
+    {
+      "url": "https://www.klipdrift.co.za/terms-and-conditions/klipdrift-rugby-world-cup-sevens-2022-competition-competition-rules",
+      "title": "Terms and Conditions - Klipdrift Rugby World Cup Sevens 2022 Competition Competition Rules - Klipdrift",
+      "source": "klipdrift",
+      "category": "terms",
+      "keywords": [
+        "competition",
+        "cup",
+        "prize",
+        "rugby",
+        "rules",
+        "sevens",
+        "win",
+        "world"
+      ],
+      "indexed_at": "2026-02-09 17:28:04"
+    },
+    {
+      "url": "https://www.klipdrift.co.za/terms-and-conditions/klipdrift-premium-fathers-day-competition-rules",
+      "title": "Terms and Conditions - Klipdrift Premium Father's Day Competition Rules - Klipdrift",
+      "source": "klipdrift",
+      "category": "terms",
+      "keywords": [
+        "brandy",
+        "competition",
+        "day",
+        "father",
+        "fathers",
+        "premium",
+        "prize",
+        "product"
+      ],
+      "indexed_at": "2026-02-09 17:28:05"
+    },
+    {
+      "url": "https://www.klipdrift.co.za/terms-and-conditions/klipdrift-summer-cocktails-social-media-competition-rules",
+      "title": "Terms and Conditions - Klipdrift Summer Cocktails Social Media Competition Rules - Klipdrift",
+      "source": "klipdrift",
+      "category": "terms",
+      "keywords": [
+        "cocktails",
+        "competition",
+        "media",
+        "prize",
+        "rules",
+        "social",
+        "summer",
+        "win"
+      ],
+      "indexed_at": "2026-02-09 17:28:06"
+    },
+    {
+      "url": "https://www.klipdrift.co.za/terms-and-conditions/klipdrift-cola-zero-sugar-sports-club-competition-rules",
+      "title": "Terms and Conditions - Klipdrift &amp; Cola Zero Sugar Sports Club – Competition Rules - Klipdrift",
+      "source": "klipdrift",
+      "category": "terms",
+      "keywords": [
+        "club",
+        "cola",
+        "competition",
+        "prize",
+        "rules",
+        "sports",
+        "sugar",
+        "win"
+      ],
+      "indexed_at": "2026-02-09 17:28:08"
+    },
+    {
+      "url": "https://www.klipdrift.co.za/terms-and-conditions/klipdrift-international-friendship-day-2023-competition-rules",
+      "title": "Terms and Conditions - Klipdrift International Friendship Day 2023 Competition Rules - Klipdrift",
+      "source": "klipdrift",
+      "category": "terms",
+      "keywords": [
+        "competition",
+        "day",
+        "friendship",
+        "international",
+        "prize",
+        "rules",
+        "win"
+      ],
+      "indexed_at": "2026-02-09 17:28:10"
+    },
+    {
+      "url": "https://www.klipdrift.co.za/terms-and-conditions/klipdrift-cola-zero-sugar-spar-cooler-box-competition-rules",
+      "title": "Terms and Conditions - Klipdrift &amp; Cola Zero Sugar Spar Cooler Box – Competition Rules - Klipdrift",
+      "source": "klipdrift",
+      "category": "terms",
+      "keywords": [
+        "box",
+        "cola",
+        "competition",
+        "cooler",
+        "prize",
+        "rules",
+        "spar",
+        "sugar"
+      ],
+      "indexed_at": "2026-02-09 17:28:11"
+    },
+    {
+      "url": "https://www.klipdrift.co.za/terms-and-conditions/klipdrift-cola-zero-sugar-influencer-sampling-drive-competition-rules",
+      "title": "Terms and Conditions - Klipdrift &amp; Cola Zero Sugar Influencer Sampling Drive Competition Rules - Klipdrift",
+      "source": "klipdrift",
+      "category": "terms",
+      "keywords": [
+        "cola",
+        "competition",
+        "drive",
+        "influencer",
+        "prize",
+        "rules",
+        "sampling",
+        "sugar"
+      ],
+      "indexed_at": "2026-02-09 17:28:14"
+    },
+    {
+      "url": "https://www.klipdrift.co.za/terms-and-conditions/cotton-fest-jhb-social-media-competition-competition-rules",
+      "title": "Terms and Conditions - Cotton Fest Jhb Social Media Competition Competition Rules - Klipdrift",
+      "source": "klipdrift",
+      "category": "terms",
+      "keywords": [
+        "competition",
+        "cotton",
+        "cotton-fest",
+        "event",
+        "fest",
+        "jhb",
+        "media",
+        "music"
+      ],
+      "indexed_at": "2026-02-09 17:28:15"
+    },
+    {
+      "url": "https://www.klipdrift.co.za/shop/klipdrift-copper-royale",
+      "title": "Klipdrift Copper Royale - Klipdrift",
+      "source": "klipdrift",
+      "category": "products",
+      "keywords": [
+        "brandy",
+        "copper",
+        "product",
+        "royale"
+      ],
+      "indexed_at": "2026-02-09 17:28:17"
+    },
+    {
+      "url": "https://www.klipdrift.co.za/alcohol-and-health",
+      "title": "Alcohol And Helath - ",
+      "source": "klipdrift",
+      "category": "general_info",
+      "keywords": [
+        "alcohol",
+        "health",
+        "brandy",
+        "klipdrift"
+      ],
+      "indexed_at": "2026-02-09 17:28:18"
+    },
+    {
+      "url": "https://www.klipdrift.co.za/Shop",
+      "title": "Shop - Klipdrift",
+      "source": "klipdrift",
+      "category": "general_info",
+      "keywords": [
+        "shop",
+        "brandy",
+        "klipdrift"
+      ],
+      "indexed_at": "2026-02-09 17:28:19"
+    },
+    {
+      "url": "https://www.klipdrift.co.za/ContactUs",
+      "title": "Contact Us - Klipdrift",
+      "source": "klipdrift",
+      "category": "general_info",
+      "keywords": [
+        "contact",
+        "contactus",
+        "brandy",
+        "klipdrift"
+      ],
+      "indexed_at": "2026-02-09 17:28:21"
+    },
+    {
+      "url": "https://www.klipdrift.co.za/SignUp",
+      "title": "Sign Up - Klipdrift",
+      "source": "klipdrift",
+      "category": "general_info",
+      "keywords": [
+        "sign",
+        "signup",
+        "brandy",
+        "klipdrift"
+      ],
+      "indexed_at": "2026-02-09 17:28:22"
+    }
+  ]
+}
