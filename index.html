@@ -83,12 +83,12 @@
   position:absolute;
   inset:0;
   pointer-events:none;
-  opacity: 0.13;
+  opacity: 0.07;
   background-image: url("line-design-bg.svg");
   background-repeat: repeat-x;
   background-size: 1400px auto;
   background-position: 0 55%;
-  filter: sepia(1) hue-rotate(15deg) brightness(1.5) contrast(1.05) saturate(1.8) drop-shadow(0 0 6px rgba(255, 184, 28, 0.25));
+  filter: contrast(1.05) saturate(0.95);
   animation: bgScroll 48s linear infinite;
   z-index: 1;
 }
@@ -114,7 +114,7 @@
     top: 14px;
     right: 14px;
     z-index: 3;
-    padding: 10px 14px;
+    padding: 9px 12px;
     border-radius: var(--r-pill);
     background: rgba(0,0,0,0.42);
     border: 1px solid rgba(255,184,28,0.45);
@@ -125,7 +125,7 @@
     gap: 8px;
   }
   .sponsor-badge img{
-    height: 40px;
+    height: 26px;
     width: auto;
     opacity: 0.90;
     display:block;
