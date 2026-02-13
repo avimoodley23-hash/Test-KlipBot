@@ -205,7 +205,6 @@
       "keywords": [
         "conditions",
         "terms",
-        "terms",
         "rules",
         "legal"
       ],
@@ -314,10 +313,10 @@
         "comic",
         "comic-con",
         "competition",
-        "competitioncompetition",
         "con",
         "event",
-        "giveaway"
+        "giveaway",
+        "prize"
       ],
       "indexed_at": "2026-02-09 17:27:48"
     },
@@ -676,7 +675,8 @@
       "keywords": [
         "alcohol",
         "health",
-        "helath"
+        "brandy",
+        "klipdrift"
       ],
       "indexed_at": "2026-02-09 17:28:18"
     },
